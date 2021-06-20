@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/core/constants/router_constants.dart';
 import 'package:password_manager/view/components/card_widget.dart';
-import 'package:password_manager/view/view_model/detail_password_view_model.dart';
-import 'package:password_manager/view/view_model/home_screen_view_model.dart';
+import 'package:password_manager/view/detail_password/detail_password_view_model.dart';
+import 'package:password_manager/view/home_screen/home_screen_view_model.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {

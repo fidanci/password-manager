@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:password_manager/core/constants/enums.dart';
 import 'package:password_manager/core/constants/router_constants.dart';
 import 'package:password_manager/core/service/storage_service.dart';
+import 'package:password_manager/view/login_screen/login_view_model.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -9,7 +11,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     StorageService service = StorageService.instance;
-    Future.delayed(Duration(seconds: 2))
+    Future.delayed(Duration(seconds: 3))
         .then((value) => route(context, service));
     return SafeArea(
       child: Scaffold(
@@ -38,8 +40,11 @@ class SplashScreen extends StatelessWidget {
   void route(BuildContext context, StorageService service) {
     service.getValue(type: SharedPreferencesEnum.FIRS_INITIALIZE).then((value) {
       if (value == "true") {
-        Navigator.pushNamedAndRemoveUntil(
-            context, LOGIN_ROUTER, (route) => false);
+        service.getValue(type: SharedPreferencesEnum.USER_NAME).then((value) {
+          context.read<LoginViewModel>().username = value;
+          Navigator.pushNamedAndRemoveUntil(
+              context, LOGIN_ROUTER, (route) => false);
+        });
       } else {
         Navigator.pushNamedAndRemoveUntil(
             context, SET_FIRST_PASSWORD, (route) => false);

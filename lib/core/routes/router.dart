@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/core/constants/router_constants.dart';
-import 'package:password_manager/view/add_password.dart';
-import 'package:password_manager/view/detail_password_screen.dart';
-import 'package:password_manager/view/home_screen.dart';
-import 'package:password_manager/view/login_page.dart';
-import 'package:password_manager/view/set_first_password.dart';
+import 'package:password_manager/view/add_password/add_password.dart';
+import 'package:password_manager/view/detail_password/detail_password_screen.dart';
+import 'package:password_manager/view/home_screen/home_screen.dart';
+import 'package:password_manager/view/login_screen/login_screen.dart';
+import 'package:password_manager/view/set_first_password/set_first_password.dart';
+import 'package:password_manager/view/update_password/update_password.dart';
 
 class Routers {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case LOGIN_ROUTER:
-        return MaterialPageRoute(builder: (_) => LoginPasswordPage());
+        return MaterialPageRoute(builder: (_) => LoginPasswordScreen());
       case SET_FIRST_PASSWORD:
         return MaterialPageRoute(builder: (_) => SetFirstPassword());
       case HOME_SCREEN:
@@ -19,6 +20,8 @@ class Routers {
         return MaterialPageRoute(builder: (_) => AddPassword());
       case DETAIL_PASSWORD:
         return MaterialPageRoute(builder: (_) => DetailPasswordScreen());
+      case UPDATE_PASSWORD:
+        return MaterialPageRoute(builder: (_) => UpdatePassword());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

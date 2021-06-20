@@ -62,17 +62,6 @@ class PasswordsDatabase extends IPasswordsDatabase {
     return result!.map((e) => PasswordModel.fromJson(e)).toList();
   }
 
-  Future<PasswordModel?> getItemById(int? id) async {
-    Database? db = await this.database;
-    List<Map<String, Object?>>? list =
-        await db?.rawQuery("Select * from todos where id = ?", [id]);
-    if (list!.isNotEmpty) {
-      return PasswordModel.fromJson(list.first);
-    } else {
-      return null;
-    }
-  }
-
   @override
   Future<PasswordModel?> readPasswordItem(int? id) async {
     Database? db = await this.database;

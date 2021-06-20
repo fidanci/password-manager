@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fidanci.password_manager">
+    <uses-permission android:name="android.permission.INTERNET" /> 
    <application
         android:label="password_manager"
         android:icon="@mipmap/ic_launcher">
