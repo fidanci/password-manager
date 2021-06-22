@@ -11,7 +11,13 @@ class DetailPasswordScreen extends StatelessWidget {
     var viewModel = Provider.of<DetailPasswordViewModel>(context);
     viewModel.getItem(viewModel.getID);
     return Scaffold(
-      appBar: AppBar(
+      appBar: appBar(viewModel, context),
+      body: bodyWidget(viewModel),
+    );
+  }
+
+  AppBar appBar(DetailPasswordViewModel viewModel, BuildContext context) =>
+      AppBar(
         title: Text("Detail Screen"),
         actions: [
           IconButton(
@@ -28,54 +34,57 @@ class DetailPasswordScreen extends StatelessWidget {
             ),
           ),
         ],
-      ),
-      body: Container(
+      );
+
+  Widget bodyWidget(DetailPasswordViewModel viewModel) => Container(
         child: Card(
           child: ListView(
             children: [
-              DetailCardWidget(
-                title: "Name/Url",
-                subTitle: viewModel.passwordModel?.passURL,
-                isObscureText: false,
-                suffixIcon: GestureDetector(
-                  onTap: () => viewModel
-                      .launchInBrowser("${viewModel.passwordModel?.passURL}"),
-                  child: Icon(
-                    Icons.open_in_browser,
-                  ),
-                ),
-              ),
-              DetailCardWidget(
-                title: "Username/E-mail",
-                subTitle: viewModel.passwordModel?.userName,
-                isObscureText: false,
-                suffixIcon: GestureDetector(
-                  onTap: () => viewModel.copyWithClipboard(
-                      copyText: "${viewModel.passwordModel?.userName}"),
-                  child: Icon(Icons.copy),
-                ),
-              ),
-              GestureDetector(
-                onLongPress: () => viewModel.copyWithClipboard(
-                    copyText: "${viewModel.passwordModel?.password}"),
-                child: DetailCardWidget(
-                  title: "Password",
-                  subTitle: viewModel.passwordModel?.password,
-                  isObscureText: viewModel.isObscureText,
-                  suffixIcon: GestureDetector(
-                    onTap: () => viewModel.changeIsObscure(),
-                    child: Icon(
-                      viewModel.isObscureText
-                          ? Icons.visibility
-                          : Icons.visibility_off,
-                    ),
-                  ),
-                ),
-              ),
+              urlCard(viewModel),
+              usernameCard(viewModel),
+              passwordCard(viewModel),
             ],
           ),
         ),
-      ),
-    );
-  }
+      );
+
+  Widget urlCard(DetailPasswordViewModel viewModel) => DetailCardWidget(
+        title: "Name/Url",
+        subTitle: viewModel.passwordModel?.passURL,
+        isObscureText: false,
+        suffixIcon: GestureDetector(
+          onTap: () =>
+              viewModel.launchInBrowser("${viewModel.passwordModel?.passURL}"),
+          child: Icon(
+            Icons.open_in_browser,
+          ),
+        ),
+      );
+
+  Widget usernameCard(DetailPasswordViewModel viewModel) => DetailCardWidget(
+        title: "Username/E-mail",
+        subTitle: viewModel.passwordModel?.userName,
+        isObscureText: false,
+        suffixIcon: GestureDetector(
+          onTap: () => viewModel.copyWithClipboard(
+              copyText: "${viewModel.passwordModel?.userName}"),
+          child: Icon(Icons.copy),
+        ),
+      );
+
+  Widget passwordCard(DetailPasswordViewModel viewModel) => GestureDetector(
+        onLongPress: () => viewModel.copyWithClipboard(
+            copyText: "${viewModel.passwordModel?.password}"),
+        child: DetailCardWidget(
+          title: "Password",
+          subTitle: viewModel.passwordModel?.password,
+          isObscureText: viewModel.isObscureText,
+          suffixIcon: GestureDetector(
+            onTap: () => viewModel.changeIsObscure(),
+            child: Icon(
+              viewModel.isObscureText ? Icons.visibility : Icons.visibility_off,
+            ),
+          ),
+        ),
+      );
 }

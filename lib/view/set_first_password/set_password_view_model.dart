@@ -29,11 +29,7 @@ class SetPasswordViewmodel extends ChangeNotifier {
         service.setValue(
             type: SharedPreferencesEnum.FIRS_INITIALIZE,
             value: true.toString());
-        service.getAllValue().then((value) {
-          value?.forEach((key, value) {
-            debugPrint(key + "  " + value);
-          });
-        });
+        service.getAllValue();
       } catch (e) {
         debugPrint(e.toString());
       } finally {

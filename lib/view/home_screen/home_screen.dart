@@ -13,16 +13,21 @@ class HomeScreen extends StatelessWidget {
     var viewModel = Provider.of<HomeScreenViewModel>(context);
     viewModel.refreshPasswords(passwordsDatabase: viewModel.passwordsDatabase);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('AnaSayfa'),
-      ),
+      appBar: appBar(context),
       body: buildListView(viewModel: viewModel),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => Navigator.pushNamed(context, ADD_PASSWORD),
-      ),
+      floatingActionButton: floatingActionBar(context),
     );
   }
+
+  AppBar appBar(BuildContext context) => AppBar(
+        title: Text('AnaSayfa'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () => Navigator.pushNamed(context, SETTING_SCREEN),
+          ),
+        ],
+      );
 
   Widget buildListView({required HomeScreenViewModel viewModel}) =>
       RefreshIndicator(
@@ -44,5 +49,11 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
               ),
+      );
+
+  FloatingActionButton floatingActionBar(BuildContext context) =>
+      FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => Navigator.pushNamed(context, ADD_PASSWORD),
       );
 }
