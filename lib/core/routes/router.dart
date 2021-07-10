@@ -12,7 +12,7 @@ class Routers {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case LOGIN_ROUTER:
-        return MaterialPageRoute(builder: (_) => LoginPasswordScreen());
+        return MaterialPageRoute(builder: (_) => LoginScreen());
       case SET_FIRST_PASSWORD:
         return MaterialPageRoute(builder: (_) => SetFirstPassword());
       case HOME_SCREEN:

@@ -26,16 +26,19 @@ class AddPassword extends StatelessWidget {
     return EditScreenBodyWidget(
       height: size.height / 2.4,
       width: size.width / 1.1,
-      body: Column(
-        children: [
-          Spacer(),
-          titleText,
-          usernameTextField(viewModel),
-          urlTextField(viewModel),
-          passwordTextField(viewModel),
-          elevatedSaveButton(viewModel, context),
-          Spacer(),
-        ],
+      body: Form(
+        key: viewModel.formKey,
+        child: Column(
+          children: [
+            Spacer(),
+            titleText,
+            usernameTextField(viewModel),
+            urlTextField(viewModel),
+            passwordTextField(viewModel),
+            elevatedSaveButton(viewModel, context),
+            Spacer(),
+          ],
+        ),
       ),
     );
   }

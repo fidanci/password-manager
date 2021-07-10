@@ -16,6 +16,7 @@ dependencies:
   provider: ^5.0.0
   sqflite: ^2.0.0+3
   url_launcher: 
+  pin_code_fields: ^7.2.0
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:password_manager/core/constants/enums.dart';
 import 'package:password_manager/core/constants/router_constants.dart';
@@ -5,14 +6,24 @@ import 'package:password_manager/core/service/storage_service.dart';
 import 'package:password_manager/view/login_screen/login_view_model.dart';
 import 'package:provider/provider.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
     StorageService service = StorageService.instance;
     Future.delayed(Duration(seconds: 3))
         .then((value) => route(context, service));
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Container(

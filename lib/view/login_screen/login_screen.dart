@@ -1,75 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/view/components/edit_view_body_widget.dart';
-import 'package:password_manager/view/components/elevated_button_widget.dart';
-import 'package:password_manager/view/components/text_field_widget.dart';
+import 'package:password_manager/view/components/pin_code_widget.dart';
 import 'package:password_manager/view/login_screen/login_view_model.dart';
 import 'package:provider/provider.dart';
 
-class LoginPasswordScreen extends StatelessWidget {
-  LoginPasswordScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var viewModel = Provider.of<LoginViewModel>(context);
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: bodyWidget(size, viewModel, context),
+      body: EditScreenBodyWidget(
+        height: size.height / 3,
+        width: size.width / 1.1,
+        body: bodyWidget(viewModel, context, size),
+      ),
     );
   }
 
-  EditScreenBodyWidget bodyWidget(
-      Size size, LoginViewModel viewModel, BuildContext context) {
-    return EditScreenBodyWidget(
-      height: size.height / 2.5,
-      width: size.width / 1.2,
-      body: Form(
-        key: viewModel.formKey,
+  Form bodyWidget(LoginViewModel viewModel, BuildContext context, Size size) {
+    return Form(
+      key: viewModel.formKey,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            titleText,
-            usernameTextField(viewModel),
-            passwordTextField(viewModel),
-            loginButton(viewModel, context),
+            titleText(viewModel),
+            SizedBox(height: size.height * .06),
+            PinCodeWidget(
+              pinChanged: viewModel.password,
+              onCompleted: (String v) {
+                viewModel.complatePassword(
+                    context: context, service: viewModel.service);
+              },
+            ),
           ],
         ),
       ),
     );
   }
 
-  Text get titleText => Text(
-        "Giriş Yap",
+  Text titleText(LoginViewModel viewModel) => Text(
+        "Hoşgeldin ${viewModel.username}!",
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
-      );
-
-  Widget usernameTextField(LoginViewModel viewModel) => TextFieldWidget(
-        initValue: "${viewModel.username}",
-        onChanged: (String value) {
-          viewModel.username = value;
-        },
-        hintText: "Kullanıcı Adı",
-        obscureText: false,
-      );
-
-  TextFieldWidget passwordTextField(LoginViewModel viewModel) =>
-      TextFieldWidget(
-        onChanged: (String value) {
-          viewModel.password = value;
-        },
-        hintText: "Şifre",
-        obscureText: true,
-        keyboardType: TextInputType.number,
-      );
-
-  ElevatedButtonWidget loginButton(
-          LoginViewModel viewModel, BuildContext context) =>
-      ElevatedButtonWidget(
-        icon: Icon(Icons.check),
-        text: "Giriş Yap",
-        onPressed: () => viewModel.buttonOnPress(
-            context: context, service: viewModel.service),
       );
 }

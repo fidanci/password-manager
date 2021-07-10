@@ -11,7 +11,7 @@ class LoginViewModel extends ChangeNotifier {
 
   StorageService get service => _service;
 
-  void buttonOnPress(
+  void complatePassword(
       {required BuildContext context, required StorageService service}) {
     if (!formKey.currentState!.validate()) {
       debugPrint("boş amk");
