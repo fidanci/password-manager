@@ -33,7 +33,7 @@ class TextFieldWidget extends StatelessWidget {
         initialValue: initValue,
         validator: (String? value) {
           if (value == null) {
-            throw "Bu alan boş olamaz";
+            return "Bu alan boş olamaz";
           }
         },
       ),

@@ -34,7 +34,9 @@ class HomeScreen extends StatelessWidget {
         onRefresh: () => viewModel.refreshPasswords(
             passwordsDatabase: viewModel.passwordsDatabase),
         child: viewModel.passwords.length < 0
-            ? Center(child: CircularProgressIndicator())
+            ? Center(
+                child: Text(
+                    "Hiç şifre yok! Şifrelerini unutmadan buraya eklemeye ne dersin?"))
             : ListView.builder(
                 itemCount: viewModel.passwords.length,
                 itemBuilder: (context, index) => CardWidget(

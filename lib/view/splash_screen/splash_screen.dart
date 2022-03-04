@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:password_manager/core/constants/enums.dart';
 import 'package:password_manager/core/constants/router_constants.dart';
